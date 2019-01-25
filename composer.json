@@ -1,0 +1,31 @@
+{
+    "name": "maplesnow/laravel-monolog-config",
+    "description": "Simple Configuration Package for Monolog in Laravel.",
+    "keywords": ["monolog", "log", "logging", "config", "laravel"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MapleSnow",
+            "email": "summerweiace@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/support": "~5.0",
+        "monolog/monolog": "^1.21"
+    },
+    "require-dev": {
+        "laravel/framework": "~5.0",
+        "predis/predis": "^1.1"
+    },
+    "suggest": {
+        "predis/predis": "Allow sending log messages to Redis"
+    },
+    "autoload": {
+        "psr-4": {
+            "MapleSnow\\MonologConfig\\": "src"
+        }
+    }
+}
