@@ -40,7 +40,7 @@ return [
             'level' => Logger::DEBUG,
         ],
         'mail' => [
-            'enabled' => true,
+            'enabled' => false,
             'driver' => 'swift_mailer',
             'host' => env('MAIL_HOST'),
             'port' => env('MAIL_PORT'),
@@ -58,6 +58,7 @@ return [
             'driver' => 'redis',
             'scheme' => 'tcp',
             'host' => env('REDIS_HOST'),
+            'password' => env('REDIS_PASSWORD'),
             'port' => env('REDIS_PORT'),
             'database' => 9,
             'key' => 'log',

@@ -26,6 +26,7 @@ Project development with reference to [Astromic/laravel-monlog-config](https://g
 
     ```
     php artisan vendor:publish --provider="MapleSnow\MonologConfig\MonologConfigServiceProvider"
+    php artisan config:cache
     ```
 
 4. Use the application's `configureMonologUsing` method in your `bootstrap/app.php` like this

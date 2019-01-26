@@ -32,7 +32,7 @@ class MonologConfigurator {
     public function __construct(Logger $monolog)
     {
         $this->monolog = $monolog;
-        $this->config = config('monolog');
+        $this->config = config('logging');
     }
 
     public function run()
@@ -144,6 +144,7 @@ class MonologConfigurator {
             $client = new Client([
                 'scheme' => array_get($config,'scheme','tcp'),
                 'host'   => array_get($config,'host','127.0.0.1'),
+                'password'   => array_get($config,'password'),
                 'port'   => array_get($config,'port',6379),
                 'database' => array_get($config,'database',1)
             ]);
@@ -182,5 +183,4 @@ class MonologConfigurator {
 
         return new SwiftMailerHandler($mailer, $message, $config['level']);
     }
-
 }

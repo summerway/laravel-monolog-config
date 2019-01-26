@@ -17,7 +17,7 @@ class MonologConfigServiceProvider extends ServiceProvider{
     public function register()
     {
         $configPath = realpath(__DIR__.'/config/logging.php');
-        $this->mergeConfigFrom($configPath, 'monolog');
+        $this->mergeConfigFrom($configPath, 'logging');
     }
 
     /**
@@ -39,8 +39,7 @@ class MonologConfigServiceProvider extends ServiceProvider{
     }
 
     protected function publishConfig() {
-        $path = realpath(__DIR__.'/config/monolog.php');
-        $this->publishes([$path => config_path('monolog.php')]);
-        $this->mergeConfigFrom($path, 'monolog');
+        $path = realpath(__DIR__.'/config/logging.php');
+        $this->publishes([$path => config_path('logging.php')]);
     }
 }

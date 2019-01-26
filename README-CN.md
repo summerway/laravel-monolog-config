@@ -23,6 +23,7 @@
 
     ```
     php artisan vendor:publish --provider="MapleSnow\MonologConfig\MonologConfigServiceProvider"
+    php artisan config:cache
     ```
 
 4. 在`bootstrap/app.php` 调用 `app` 的 `configureMonologUsing` 方法
