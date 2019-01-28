@@ -8,9 +8,9 @@
 
 namespace MapleSnow\MonologConfig;
 
+use MapleSnow\MonologConfig\Handler\RedisFilterHandler;
 use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\ErrorLogHandler;
-use Monolog\Handler\FilterHandler;
 use Monolog\Handler\RedisHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
@@ -139,35 +139,19 @@ class MonologConfigurator {
 
     /**
      * @param array $config
-     * @return FilterHandler
+     * @return RedisFilterHandler
      */
     protected function getRedisFilterHandler(array $config)
     {
-        return new FilterHandler(function($record) use ($config){
-            $client = new Client([
-                'scheme' => array_get($config,'scheme','tcp'),
-                'host'   => array_get($config,'host','127.0.0.1'),
-                'password'   => array_get($config,'password'),
-                'port'   => array_get($config,'port',6379),
-                'database' => array_get($config,'database',1)
-            ]);
+        $client = new Client([
+            'scheme' => array_get($config,'scheme','tcp'),
+            'host'   => array_get($config,'host','127.0.0.1'),
+            'password'   => array_get($config,'password'),
+            'port'   => array_get($config,'port',6379),
+            'database' => array_get($config,'database',1)
+        ]);
 
-            $key = date('Y-m-d').":".Str::lower($record['level_name'])."_log";
-            $redisHandler =  new RedisHandler($client, $key, $config['level']);
-
-            //filter special handle formatter
-            if(isset($config['formatter'])){
-                $formatter = new $config['formatter'];
-                if(!($formatter instanceof FormatterInterface)){
-                    throw new \RuntimeException("It was not possible to create an instance.");
-                }
-
-                $redisHandler->setFormatter($formatter);
-            }
-
-            $client->expire($key,$config['expire']);
-            return $redisHandler;
-        });
+        return new RedisFilterHandler($client);
     }
 
     /**
@@ -176,12 +160,12 @@ class MonologConfigurator {
      */
     protected function getSwiftMailerHandler(array $config)
     {
-        $transport = new Swift_SmtpTransport($config['host'],$config['port'],$config['encryption']);
+        $transport = new Swift_SmtpTransport($config['host'],$config['port'],array_get($config,'encryption'));
         $transport->setUsername($config['username'])->setPassword($config['password']);
 
         // 创建mailer对象
         $mailer = new Swift_Mailer($transport);
-        $message = new Swift_Message($config['subject']);
+        $message = new Swift_Message($config['subject'],null,'text/html');
         $message->setFrom($config['from'])->setTo($config['to'])->setCc($config['cc']);
 
         return new SwiftMailerHandler($mailer, $message, array_get($config,'level',Logger::ERROR));

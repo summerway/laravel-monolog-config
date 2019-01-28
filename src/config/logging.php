@@ -46,7 +46,8 @@ return [
             'port' => env('MAIL_PORT'),
             'username' => env("MAIL_USERNAME"),
             'password' => env("MAIL_PASSWORD"),
-            'from_address' => env("MAIL_FROM_ADDRESS"),
+            'encryption' => env("MAIL_ENCRYPTION"),
+            'from' => env("MAIL_FROM_ADDRESS"),
             'to' => ['to@example.com'],
             'cc' => null,
             'subject' => 'URGENT BUG',
@@ -78,6 +79,6 @@ return [
             'expire' => 43200,          // 5 days
             'level' => Logger::DEBUG,
             'formatter' => RedisFilterFormatter::class
-        ],
+        ]
     ]
 ];
