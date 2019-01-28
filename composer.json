@@ -27,5 +27,12 @@
         "psr-4": {
             "MapleSnow\\MonologConfig\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MapleSnow\\MonologConfig\\MonologConfigServiceProvider"
+            ]
+        }
     }
 }

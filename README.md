@@ -17,7 +17,7 @@ Project development with reference to [Astromic/laravel-monlog-config](https://g
 2. After updating composer, add the service provider to the `providers` array in `config/app.php`
 
     ```php
-    \MapleSnow\MonologConfig\MonologConfigServiceProvider::class
+    MapleSnow\MonologConfig\MonologConfigServiceProvider::class
     ```
 
     **Laravel 5.5** uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
