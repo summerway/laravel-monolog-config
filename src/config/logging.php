@@ -13,9 +13,9 @@ return [
 
     // optional log channel
     'handlers' => [
-        'stream' => [
+        'single' => [
             'enabled' => false,
-            'driver' => 'single',
+            'driver' => 'stream',
             'path' => storage_path('logs/laravel.log'),
             'level' => Logger::DEBUG
         ],
@@ -47,10 +47,10 @@ return [
             'username' => env("MAIL_USERNAME"),
             'password' => env("MAIL_PASSWORD"),
             'from_address' => env("MAIL_FROM_ADDRESS"),
-            'to' => ['summerweiace@163.com'],
+            'to' => ['to@example.com'],
             'cc' => null,
             'subject' => 'URGENT BUG',
-            'level' => Logger::DEBUG,
+            'level' => Logger::ERROR,
             'formatter' => MailFormatter::class
         ],
         'redis' => [
@@ -71,8 +71,9 @@ return [
             'enabled' => false,
             'driver' => 'redis_filter',
             'scheme' => 'tcp',
-            'host' => 'redis',
-            'port' => 6379,
+            'host' => env('REDIS_HOST'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT'),
             'database' => 10,
             'expire' => 43200,          // 5 days
             'level' => Logger::DEBUG,

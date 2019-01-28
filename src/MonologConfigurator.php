@@ -27,6 +27,7 @@ use Predis\Client;
 class MonologConfigurator {
 
     protected $monolog;
+
     protected $config;
 
     public function __construct(Logger $monolog)
@@ -71,7 +72,8 @@ class MonologConfigurator {
                 }
                 return true;
             } catch (\Exception $e) {
-                return false;
+                throw new $e;
+                //return false;
             }
         }
         return false;
@@ -123,6 +125,7 @@ class MonologConfigurator {
         $client = new Client([
             'scheme' => array_get($config,'scheme','tcp'),
             'host'   => array_get($config,'host','127.0.0.1'),
+            'password'   => array_get($config,'password'),
             'port'   => array_get($config,'port',6379),
             'database' => array_get($config,'database',1)
         ]);
@@ -181,6 +184,6 @@ class MonologConfigurator {
         $message = new Swift_Message($config['subject']);
         $message->setFrom($config['from'])->setTo($config['to'])->setCc($config['cc']);
 
-        return new SwiftMailerHandler($mailer, $message, $config['level']);
+        return new SwiftMailerHandler($mailer, $message, array_get($config,'level',Logger::ERROR));
     }
 }

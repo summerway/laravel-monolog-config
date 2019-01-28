@@ -43,9 +43,8 @@
     参考官方文档 [laravel custom-monolog-configuration](https://laravel.com/docs/5.5/errors#custom-monolog-configuration)
 
 ## 配置
-
+  
 日志输出类型
-
 | 名称      | 描述 | Handler |
 | :------:  | :-----:  | :-----: |
 | `single`  | 像laravel提供的single方式输出日志 | `StreamHandler` |
@@ -55,3 +54,5 @@
 | `mail`    | 通过邮件发送紧急的异常日志 | `SwfitMailHandler` |
 | `redis`   |  将日志输出到redis中，用一个key保存数据  | `RedisHandler` |
 | `redis-filter` |  根据日期和日志等级输出日志到redis中 |  `FilterHandler` |
+
+`enable` 是控制开关。

@@ -46,8 +46,8 @@ Project development with reference to [Astromic/laravel-monlog-config](https://g
     Refer [laravel custom-monolog-configuration](https://laravel.com/docs/5.5/errors#custom-monolog-configuration)
 
 ## Configuration
-Available output channel
 
+Available output channel  
 | Name      | Description | Handler |
 | :------:  | :-----:  | :-----: |
 | `single`  | output log as like as laravel single channel | `StreamHandler` |
@@ -57,3 +57,5 @@ Available output channel
 | `mail`    | send a mail report some urgent exception  | `SwfitMailHandler` |
 | `redis`   |  output log to redis  | `RedisHandler` |
 | `redis-filter` |  output log to redis depends level and date |  `FilterHandler` |
+
+`enable` is the trigger to control channel active or disabled
