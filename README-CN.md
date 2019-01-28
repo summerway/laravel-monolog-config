@@ -45,6 +45,7 @@
 ## 配置
   
 日志输出类型
+
 | 名称      | 描述 | Handler |
 | :------:  | :-----:  | :-----: |
 | `single`  | 像laravel提供的single方式输出日志 | `StreamHandler` |

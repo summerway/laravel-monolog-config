@@ -48,6 +48,7 @@ Project development with reference to [Astromic/laravel-monlog-config](https://g
 ## Configuration
 
 Available output channel  
+
 | Name      | Description | Handler |
 | :------:  | :-----:  | :-----: |
 | `single`  | output log as like as laravel single channel | `StreamHandler` |
