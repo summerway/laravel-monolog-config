@@ -56,6 +56,6 @@ Available output channel
 | `errorlog`| output log as like as laravel errorlog channel | `ErrorLogHandler` |
 | `mail`    | send a mail report some urgent exception  | `SwfitMailHandler` |
 | `redis`   |  output log to redis  | `RedisHandler` |
-| `redis-filter` |  output log to redis depends level and date |  `FilterHandler` |
+| `redis-filter` |  output log to redis depends on level and date |  `RedisFilterHandler` |
 
 `enable` is the trigger to control channel active or disabled

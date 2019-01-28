@@ -53,6 +53,6 @@
 | `errorlog`| 像laravel提供的errorlog方式输出日志 | `ErrorLogHandler` |
 | `mail`    | 通过邮件发送紧急的异常日志 | `SwfitMailHandler` |
 | `redis`   |  将日志输出到redis中，用一个key保存数据  | `RedisHandler` |
-| `redis-filter` |  根据日期和日志等级输出日志到redis中 |  `FilterHandler` |
+| `redis-filter` |  根据日期和日志等级输出日志到redis中 |  `RedisFilterHandler` |
 
 `enable` 是控制开关。
