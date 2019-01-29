@@ -27,21 +27,24 @@ use Redis;
 class RedisFilterHandler extends AbstractProcessingHandler
 {
     private $redisClient;
+    private $redisExpire;
     protected $capSize;
 
     /**
-     * @param Client||Redis $redis   The redis instance
-     * @param int                   $level   The minimum logging level at which this handler will be triggered
-     * @param bool                  $bubble  Whether the messages that are handled can bubble up the stack or not
+     * @param Client||Redis         redis   The redis instance
+     * @param int|bool                   expire  The redis key expire time
+     * @param int                   level   The minimum logging level at which this handler will be triggered
+     * @param bool                  bubble  Whether the messages that are handled can bubble up the stack or not
      * @param int|bool                   $capSize Number of entries to limit list size to
      */
-    public function __construct($redis, $level = Logger::DEBUG, $bubble = true, $capSize = false)
+    public function __construct($redis, $expire = false, $level = Logger::DEBUG, $bubble = true, $capSize = false)
     {
         if (!(($redis instanceof Client) || ($redis instanceof Redis))) {
             throw new \InvalidArgumentException('Predis\Client or Redis instance required');
         }
 
         $this->redisClient = $redis;
+        $this->redisExpire = $expire;
         $this->capSize = $capSize;
 
         parent::__construct($level, $bubble);
@@ -57,6 +60,9 @@ class RedisFilterHandler extends AbstractProcessingHandler
         } else {
             $redisKey = date('Y-m-d').":".Str::lower($record['level_name'])."_log";
             $this->redisClient->rpush($redisKey, $record["formatted"]);
+            if($this->redisExpire){
+                $this->redisClient->expire($redisKey,$this->redisExpire);
+            }
         }
     }
 
@@ -81,6 +87,10 @@ class RedisFilterHandler extends AbstractProcessingHandler
                 $tx->rpush($redisKey, $record["formatted"]);
                 $tx->ltrim($redisKey, -$capSize, -1);
             });
+        }
+
+        if($this->redisExpire){
+            $this->redisClient->expire($redisKey,$this->redisExpire);
         }
     }
 

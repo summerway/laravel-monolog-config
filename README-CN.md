@@ -42,8 +42,8 @@
     参考官方文档 [laravel custom-monolog-configuration](https://laravel.com/docs/5.5/errors#custom-monolog-configuration)
 
 ## 配置
-  
-日志输出类型
+
+配置文件路径是 `config/logging.php` 。以下是日志输出类型，通过`enable`去控制对应类型功能开关。 
 
 | 名称      | 描述 | Handler |
 | :------:  | :-----:  | :-----: |
@@ -53,6 +53,25 @@
 | `errorlog`| 像laravel提供的errorlog方式输出日志 | `ErrorLogHandler` |
 | `mail`    | 通过邮件发送紧急的异常日志 | `SwfitMailHandler` |
 | `redis`   |  将日志输出到redis中，用一个key保存数据  | `RedisHandler` |
-| `redis-filter` |  根据日期和日志等级输出日志到redis中 |  `RedisFilterHandler` |
+| `redisFilter` |  根据日期和日志等级输出日志到redis中 |  `RedisFilterHandler` |
 
-`enable` 是控制开关。
+# 用法
+
+输出日志方式是laravel的`log`facade,包括8种日志等级: *emergency*, *alert*, *critical*, *error*, *warning*, *notice*, *info* 和 *debug*。
+
+```php
+Log::emergency($message);
+Log::alert($message);
+Log::critical($message);
+Log::error($message);
+Log::warning($message);
+Log::notice($message);
+Log::info($message);
+Log::debug($message);
+```
+
+如果你需要输出自定义的信息,需要将内容定义在`extra`为key的数组下输出
+
+```php
+Log::debug($message,['extra' => "自定义信息"]);
+```

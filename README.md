@@ -46,16 +46,35 @@ Project development with reference to [Astromic/laravel-monlog-config](https://g
 
 ## Configuration
 
-Available output channel  
+All of the configuration for your application's logging system is housed in the `config/logging.php` configuration file. 
+`enable` is the trigger to control your application's log channels active or disabled.
 
 | Name      | Description | Handler |
 | :------:  | :-----:  | :-----: |
-| `single`  | output log as like as laravel single channel | `StreamHandler` |
-| `daily`   | output log as like as laravel daily channel | `RotatingFileHandler` |
-| `syslog`  | output log as like as laravel syslog channel | `SyslogHandler` |
-| `errorlog`| output log as like as laravel errorlog channel | `ErrorLogHandler` |
-| `mail`    | send a mail report some urgent exception  | `SwfitMailHandler` |
-| `redis`   |  output log to redis  | `RedisHandler` |
-| `redis-filter` |  output log to redis depends on level and date |  `RedisFilterHandler` |
+| `single`  | writing log as like as laravel single channel | `StreamHandler` |
+| `daily`   | writing log as like as laravel daily channel | `RotatingFileHandler` |
+| `syslog`  | writing log as like as laravel syslog channel | `SyslogHandler` |
+| `errorlog`| writing log as like as laravel errorlog channel | `ErrorLogHandler` |
+| `mail`    | sending a mail report some urgent exception  | `SwfitMailHandler` |
+| `redis`   |  writing log to redis  | `RedisHandler` |
+| `redisFilter` |  writing log to redis depends on level and date |  `RedisFilterHandler` |
 
-`enable` is the trigger to control channel active or disabled
+# Usage
+
+You may write information to the logs using the laravel's `Log` facade.The logger provides the eight logging levels: *emergency*, *alert*, *critical*, *error*, *warning*, *notice*, *info* and *debug*。
+
+```php
+Log::emergency($message);
+Log::alert($message);
+Log::critical($message);
+Log::error($message);
+Log::warning($message);
+Log::notice($message);
+Log::info($message);
+Log::debug($message);
+```
+If you need to output custom information, you need to define the content to be output under an array of `extra` for the key.
+
+```php
+Log::debug($message,['extra' => "extra message"]);
+```
