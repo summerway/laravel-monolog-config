@@ -27,8 +27,20 @@ class MailFormatter extends HtmlFormatter {
         $output .= '<table cellspacing="1" width="100%" class="monolog-output">';
 
         $output .= $this->addRow('Time', $record['datetime']->format($this->dateFormat));
-        $output .= $this->addRow('Host', request()->getHost());
-        $output .= $this->addRow('remoteAddress', request()->getClientIp());
+        $output .= $this->addRow('clientIp', request()->getClientIp());
+
+        // server info
+        $server = [
+            'host' => gethostname(),
+            'hostName' => request()->getHost(),
+            'address' => $_SERVER['SERVER_ADDR']
+        ];
+        $embeddedTable = '<table cellspacing="1" width="100%">';
+        foreach ($server as $key => $value) {
+            $embeddedTable .= $this->addRow($key, $this->convertToString($value));
+        }
+        $embeddedTable .= '</table>';
+        $output .= $this->addRow('Server', $embeddedTable, false);
 
         $message = (string)$record['message'];
         // exception info

@@ -24,8 +24,13 @@ class RedisFormatter extends BaseJsonFormatter {
     {
         $level = $record['level_name'];
         $time = $record['datetime']->format('Y-m-d H:i:s');
-        $host = request()->getHost();
-        $remoteAddress = request()->getClientIp();
+        $server = [
+            'host' => gethostname(),
+            'hostName' => request()->getHost(),
+            'address' => $_SERVER['SERVER_ADDR']
+        ];
+
+        $clientIp = request()->getClientIp();
         $message = $record['message'];
 
         // exception info
@@ -38,9 +43,9 @@ class RedisFormatter extends BaseJsonFormatter {
 
             $exception = compact('file','line','code','message');
 
-            $data = compact('level','time','host','remoteAddress','exception');
+            $data = compact('level','time','clientIp','server','exception');
         }else{
-            $data = compact('level','time','host','remoteAddress','message');
+            $data = compact('level','time','clientIp','server','message');
         }
 
         // customer input

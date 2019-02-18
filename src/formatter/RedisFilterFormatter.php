@@ -23,8 +23,12 @@ class RedisFilterFormatter extends BaseJsonFormatter{
     public function format(array $record)
     {
         $time = $record['datetime']->format('Y-m-d H:i:s');
-        $host = request()->getHost();
-        $remoteAddress = request()->getClientIp();
+        $server = [
+            'host' => gethostname(),
+            'hostName' => request()->getHost(),
+            'address' => $_SERVER['SERVER_ADDR']
+        ];
+        $clientIp = request()->getClientIp();
         $message = $record['message'];
 
         // exception info
@@ -37,9 +41,9 @@ class RedisFilterFormatter extends BaseJsonFormatter{
 
             $exception = compact('file','line','code','message');
 
-            $data = compact('time','host','remoteAddress','exception');
+            $data = compact('time','clientIp','server','exception');
         }else{
-            $data = compact('time','host','remoteAddress','message');
+            $data = compact('time','clientIp','server','message');
         }
 
         // customer input
