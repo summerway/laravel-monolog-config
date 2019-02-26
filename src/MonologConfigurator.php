@@ -72,8 +72,9 @@ class MonologConfigurator {
                 }
                 return true;
             } catch (\Exception $e) {
-                throw new $e;
-                //return false;
+                // Please output exception information when debugging code
+                // throw new $e;
+                return false;
             }
         }
         return false;
@@ -123,11 +124,11 @@ class MonologConfigurator {
     protected function getRedisHandler(array $config)
     {
         $client = new Client([
-            'scheme' => array_get($config,'scheme','tcp'),
-            'host'   => array_get($config,'host','127.0.0.1'),
-            'password'   => array_get($config,'password'),
-            'port'   => array_get($config,'port',6379),
-            'database' => array_get($config,'database',1)
+            'scheme'    => array_get($config,'scheme','tcp'),
+            'host'      => array_get($config,'host','localhost'),
+            'password'  => array_get($config,'password'),
+            'port'      => array_get($config,'port',6379),
+            'database'  => array_get($config,'database',1)
         ]);
 
         $key = array_get($config,'key','log');
@@ -144,11 +145,11 @@ class MonologConfigurator {
     protected function getRedisFilterHandler(array $config)
     {
         $client = new Client([
-            'scheme' => array_get($config,'scheme','tcp'),
-            'host'   => array_get($config,'host','127.0.0.1'),
-            'password'   => array_get($config,'password'),
-            'port'   => array_get($config,'port',6379),
-            'database' => array_get($config,'database',1)
+            'scheme'    => array_get($config,'scheme','tcp'),
+            'host'      => array_get($config,'host','127.0.0.1'),
+            'password'  => array_get($config,'password'),
+            'port'      => array_get($config,'port',6379),
+            'database'  => array_get($config,'database',1)
         ]);
 
         return new RedisFilterHandler($client);

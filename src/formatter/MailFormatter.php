@@ -33,7 +33,7 @@ class MailFormatter extends HtmlFormatter {
         $server = [
             'host' => gethostname(),
             'hostName' => request()->getHost(),
-            'address' => $_SERVER['SERVER_ADDR']
+            'address' => request()->server('SERVER_ADDR')
         ];
         $embeddedTable = '<table cellspacing="1" width="100%">';
         foreach ($server as $key => $value) {

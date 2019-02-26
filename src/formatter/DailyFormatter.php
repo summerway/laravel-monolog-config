@@ -27,7 +27,7 @@ class DailyFormatter extends LineFormatter {
         $server = [
             'host' => gethostname(),
             'hostName' => request()->getHost(),
-            'address' => $_SERVER['SERVER_ADDR']
+            'address' => request()->server('SERVER_ADDR')
         ];
         $clientIp = request()->getClientIp();
         $message = $record['message'];
